@@ -7,7 +7,7 @@ let todos = [];
 router.post('/', function(req, res, next) {
     console.log("todo function");
     console.log(req.body);
-    const username = req.body['user-name'];
+    const username = req.body['input-name'];
     const task = req.body['input-task'];
   
     console.log(username);

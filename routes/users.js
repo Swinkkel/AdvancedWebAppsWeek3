@@ -16,7 +16,7 @@ router.get('/:id', function(req, res, next) {
   const entry = todosArray.find(entry => entry.name === name);
   if (entry) {
       console.log("found: " + entry);
-      res.json({ text: 'User found' });
+      res.json(entry);
   }
   else {
       res.json({ text: 'User not found' });
@@ -29,11 +29,11 @@ router.delete('/:id', function(req, res, next) {
   const index = todosArray.indexOf(userName);
   if (index) {
       todosArray.splice(index, 1);
-      res.json( "{ status: 'User found' }" );
+      res.json( { status: 'User found' } );
   }
   else {
       res.send('User not found');
-      res.json( "{ status: 'User not found' }" );
+      res.json( { status: 'User not found' } );
   }
 });
 

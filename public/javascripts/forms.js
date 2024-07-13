@@ -35,10 +35,40 @@ function initializeCode() {
         fetch("http://localhost:3000/user/" + searchNameInput.value, {})
            .then(response => response.json())
            .then(data => {
-                setStatus(data.text);
+                if (data.name) {
+                    console.log("Show user");
+                    showUser(data);
+                }
+                else {
+                    console.log("Show status");
+                    setStatus(data.text);
+                }
                 console.log(data);
            })
     });
+}
+
+function showUser(user) {
+    console.log(user);
+    const userDiv = document.getElementById("user");
+    userDiv.replaceChildren();
+
+    const nameElement = document.createElement('h1');
+    nameElement.textContent = user.name;
+
+    console.log(user.name);
+
+    const todosListElement = document.createElement('ul');
+    user.todos.forEach(todo => {
+        const todoEntryElement = document.createElement('li');
+        todoEntryElement.textContent = todo;
+        todosListElement.appendChild(todoEntryElement);
+
+        console.log(todo);
+    })
+
+    userDiv.appendChild(nameElement);
+    userDiv.appendChild(todosListElement);
 }
 
 function setStatus(status) {

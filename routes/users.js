@@ -1,5 +1,4 @@
 var express = require('express');
-const req = require('express/lib/request');
 var router = express.Router();
 
 let {todosArray} = require('./todo.js');
@@ -10,16 +9,17 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-  const { name } = req.body;
+  const name = req.params.id;
+
+  console.log("test: " + name);
 
   const entry = todosArray.find(entry => entry.name === name);
   if (entry) {
-      console.log(entry);
-      res.json( "{ status: 'User found' }" );
+      console.log("found: " + entry);
+      res.json({ text: 'User found' });
   }
   else {
-      console.log(entry);
-      res.json( "{ status: 'User not found' }" );
+      res.json({ text: 'User not found' });
   }
 });
 

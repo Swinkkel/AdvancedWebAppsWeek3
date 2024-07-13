@@ -16,11 +16,11 @@ router.post('/', function(req, res, next) {
     const entry = todosArray.find(entry => entry.name === name);
     if (entry) {
         entry.todos.push(task);
-        res.json( "{ status: 'Todo added' }" );
+        res.json( { text: 'Todo added' });
     }
     else {
         todosArray.push({name: name, todos: [task]});
-        res.json( "{ status: 'User added'}");
+        res.json( { text: 'User added'});
     }
 });
 

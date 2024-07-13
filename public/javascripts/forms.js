@@ -23,7 +23,8 @@ function initializeCode() {
            })
            .then(response => response.json())
            .then(data => {
-               console.log(data);
+                setStatus(data.text);
+                console.log(data);
            })
     });
 
@@ -34,7 +35,14 @@ function initializeCode() {
         fetch("http://localhost:3000/user/" + searchNameInput.value, {})
            .then(response => response.json())
            .then(data => {
-               console.log(data);
+                setStatus(data.text);
+                console.log(data);
            })
     });
+}
+
+function setStatus(status) {
+    console.log("Change status to: " + status)
+    const statusText = document.getElementById("status");
+    statusText.innerHTML = status;
 }

@@ -31,7 +31,7 @@ function initializeCode() {
     addSearchButton.addEventListener("click", function() {
         const searchNameInput = document.getElementById("search-name");
 
-        fetch("http://localhost:3000/users/" + searchNameInput.value, {})
+        fetch("http://localhost:3000/user/" + searchNameInput.value, {})
            .then(response => response.json())
            .then(data => {
                console.log(data);

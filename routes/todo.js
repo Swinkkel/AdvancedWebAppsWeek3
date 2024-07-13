@@ -1,33 +1,27 @@
 var express = require('express');
 var router = express.Router();
 
-let todos = [];
+let todosArray = [];
 
-/* GET users listing. */
+/* GET todos listing. */
+router.get('/', function(req, res, next) {
+    res.send('users: respond with a resource');
+  });
+
+// Data from form.
 router.post('/', function(req, res, next) {
-    console.log("todo function");
-    console.log(req.body);
-    const username = req.body['input-name'];
-    const task = req.body['input-task'];
-  
-    console.log(username);
-    console.log(task);
+    const { name } =  req.body;
+    const { task } = req.body;
 
-    const keys = todos.keys();
-
-    const userObject = todos.find(item => item.name === username);
-    if (userObject) {
-        userObject.todos.push(task);
-        res.send('Todo added');
+    const entry = todosArray.find(entry => entry.name === name);
+    if (entry) {
+        entry.todos.push(task);
+        res.json( "{ status: 'Todo added' }" );
     }
     else {
-        const newUser = {
-            name: username,
-            todos: [task]
-        };
-        todos.push(newUser);
-        res.send('User added');
+        todosArray.push({name: name, todos: [task]});
+        res.json( "{ status: 'User added'}");
     }
 });
 
-module.exports = router;
+module.exports = { todosArray, router };

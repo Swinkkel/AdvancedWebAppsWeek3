@@ -56,6 +56,12 @@ function showUser(user) {
     const nameElement = document.createElement('h1');
     nameElement.textContent = user.name;
 
+    const deleteButton = document.createElement('button');
+    deleteButton.id = 'delete-user';
+    deleteButton.textContent = "Delete"
+    deleteButton.setAttribute("user-data", JSON.stringify(user));
+    deleteButton.addEventListener("click", deleteUser);
+
     console.log(user.name);
 
     const todosListElement = document.createElement('ul');
@@ -68,7 +74,34 @@ function showUser(user) {
     })
 
     userDiv.appendChild(nameElement);
+    userDiv.appendChild(deleteButton);
     userDiv.appendChild(todosListElement);
+}
+
+function deleteUser(event) {
+    const user = JSON.parse(event.currentTarget.getAttribute("user-data"));
+
+    deletAPIurl = "http://localhost:3000/user/" + user.name;
+    console.log("Delete URL: " + deletAPIurl);
+
+    fetch(deletAPIurl, { method: "delete"})
+    .then(response => response.json())
+    .then(data => {
+         if (data.text === "User deleted") {
+             console.log("Deleted user");
+
+             // Clear user from website.
+             const userDiv = document.getElementById("user");
+             userDiv.replaceChildren();
+         }
+         else {
+             console.log("User not found");
+         }
+
+         setStatus(data.text);
+         console.log(data);
+    })
+
 }
 
 function setStatus(status) {

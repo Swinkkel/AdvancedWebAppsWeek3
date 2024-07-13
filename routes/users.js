@@ -27,13 +27,14 @@ router.delete('/:id', function(req, res, next) {
   const userName = req.params.id;
 
   const index = todosArray.indexOf(userName);
-  if (index) {
+  if (userName && index) {
+      console.log("User deleted");
       todosArray.splice(index, 1);
-      res.json( { status: 'User found' } );
+      res.json( { text: 'User deleted' } );
   }
   else {
-      res.send('User not found');
-      res.json( { status: 'User not found' } );
+      console.log("Failed to delete. User not found.");
+      res.json( { text: 'User not found' } );
   }
 });
 
